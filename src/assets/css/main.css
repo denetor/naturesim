@@ -1,0 +1,6 @@
+body {
+    /* remove margin body to fill screen */
+    margin: 0;
+    padding: 0;
+    border: none;
+}

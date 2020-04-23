@@ -1,0 +1,14 @@
+[
+  {
+    "id": 0,
+    "name": "water"
+  },
+  {
+    "id": 1,
+    "name": "grass"
+  },
+  {
+    "id": 2,
+    "name": "forest"
+  }
+]
