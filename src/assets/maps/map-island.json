@@ -1,5 +1,6 @@
 {
   "name": "island",
+  "terrain": "terrain.json",
   "tiles": [
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 1, 1, 1, 0, 0, 0],

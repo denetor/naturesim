@@ -49,18 +49,26 @@ class ScenePlay extends Phaser.Scene {
 		loadJsonFromUri('assets/maps/map-' + mapName + '.json', function(err, mapData) {
 			if (!err) {
 				// load terrain data
-				// build map layer
-				const mapTiles = mapData.tiles;
-				const map = scene.make.tilemap({ data: mapTiles, tileWidth: 16, tileHeight: 16 });
-				const tiles = map.addTilesetImage("map-tiles");
-				const layer = map.createStaticLayer(0, tiles, 0, 0);
+				loadJsonFromUri('assets/maps/' + mapData.terrain, function(err, terrainData) {
+					if (!err) {
+						// build terrain map
+						// <TODO> find a quick way to link every map tile with its terrain description
+
+						// build map layer
+						const mapTiles = mapData.tiles;
+						const map = scene.make.tilemap({ data: mapTiles, tileWidth: 16, tileHeight: 16 });
+						const tiles = map.addTilesetImage("map-tiles");
+						const layer = map.createStaticLayer(0, tiles, 0, 0);
+					} else {
+						console.error('Error loading terrain data: assets/maps/' + mapData.terrain);
+						console.error(err);
+					}
+				});
 			} else {
 				console.error('Error loading map: assets/maps/map-' + mapName + '.json');
 				console.error(err);
 			}
 		});
-
-
 	}
 
 
