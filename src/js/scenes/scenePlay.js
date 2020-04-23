@@ -6,6 +6,8 @@
 class ScenePlay extends Phaser.Scene {
 	constructor() {
 		super('ScenePlay');
+		this.terrains = new Map();      // terrain types Map
+		this.cells = [];                // map cells
 	}
 
 
@@ -46,13 +48,34 @@ class ScenePlay extends Phaser.Scene {
 	buildMap(mapName) {
 		// load map data file
 		var scene = this;
+		var terrains = this.terrains;
+		var cells = this.cells;
 		loadJsonFromUri('assets/maps/map-' + mapName + '.json', function(err, mapData) {
 			if (!err) {
 				// load terrain data
 				loadJsonFromUri('assets/maps/' + mapData.terrain, function(err, terrainData) {
 					if (!err) {
-						// build terrain map
-						// <TODO> find a quick way to link every map tile with its terrain description
+						// build terrain types map
+						if (terrainData && Array.isArray(terrainData)) {
+							for (let i=0; i<terrainData.length; i++) {
+								terrains.set(terrainData[i].id, terrainData[i]);
+							}
+						}
+
+						// build cells
+						let tilesRow, cellsRow;
+						for (let row = 0; row < mapData.tiles.length; row++) {
+							tilesRow = mapData.tiles[row];
+							cellsRow = [];
+							for (let col = 0; col < tilesRow.length; col++) {
+								// TODO usea a Cell class
+								cellsRow.push({
+									terrainType: tilesRow[col],
+									terrainName: terrains.get(tilesRow[col]).name,
+								});
+							}
+							cells.push(cellsRow);
+						}
 
 						// build map layer
 						const mapTiles = mapData.tiles;
