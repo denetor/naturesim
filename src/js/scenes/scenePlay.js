@@ -68,11 +68,7 @@ class ScenePlay extends Phaser.Scene {
 							tilesRow = mapData.tiles[row];
 							cellsRow = [];
 							for (let col = 0; col < tilesRow.length; col++) {
-								// TODO usea a Cell class
-								cellsRow.push({
-									terrainType: tilesRow[col],
-									terrainName: terrains.get(tilesRow[col]).name,
-								});
+								cellsRow.push(new Cell(tilesRow[col], terrains.get(tilesRow[col])));
 							}
 							cells.push(cellsRow);
 						}
